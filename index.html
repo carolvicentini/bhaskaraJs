@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fórmula de Baskara</title>
+</head>
+<body>
+
+<h1>Resolvendo Fórmula de Baskara</h1>
+
+<p>Informe os valores:</p>
+
+
+<form >
+	<label for="a">a: </label><input type="number" id="a" name="a"><br>
+	<label for="b">b: </label><input type="number" id="b" name="b"><br>
+	<label for="c">c: </label><input type="number" id="c" name="c"><br>
+	<button onclick="resolve()">Enviar</button>
+</form>
+<p id="delta"></p>
+<p id="deltaDescricao"></p>
+<p id="resultado"></p>
+<div><img id="grafico" src=""></div>
+
+<script>
+function resolve() {
+	event.preventDefault();
+
+	var a = Number(document.getElementById("a").value);
+	var b = Number(document.getElementById("b").value);
+	var c = Number(document.getElementById("c").value);
+
+	var delta = b*b - 4*a*c;
+	document.getElementById("delta").innerHTML = "Delta: "+delta;
+
+	var imagem = ( (a > 0) ? "1": "2");
+
+	if(delta < 0){
+		document.getElementById("deltaDescricao").innerHTML = "Não existem raízes reais para delta negativo.";
+		document.getElementById("resultado").innerHTML = "Sem solução.";
+		imagem = "3"+ imagem;
+	} else if(delta == 0){
+		document.getElementById("deltaDescricao").innerHTML = "Quando o delta é 0, existem duas raízes reais iguais.";
+       	var x = b*(-1)/2;
+		document.getElementById("resultado").innerHTML = "x' = "+x;
+		imagem = "2"+ imagem;
+	} else {
+        var raizDelta = Math.sqrt(delta);
+        document.getElementById("deltaDescricao").innerHTML = "Raíz quadrada de delta: "+raizDelta;
+        var x1 = (b*(-1) + raizDelta) / (2*a);
+        var x2 = (b*(-1) - raizDelta) / (2*a);
+        document.getElementById("resultado").innerHTML = "x' = "+x1 + ", x'' = "+x2;
+		imagem = "1"+ imagem;
+	}
+	imagem = "img/"+imagem+".jpg"
+	console.log(imagem);
+	document.getElementById("grafico").src = imagem;
+
+	// mais info sobre graficos de baskara:
+	//https://brasilescola.uol.com.br/matematica/passo-passo-para-construcao-grafico-funcao-segundo-grau.htm
+
+}
+</script>
+
+</body>
+</html>
